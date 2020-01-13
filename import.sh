@@ -29,7 +29,7 @@ PASSWORD=${PASSWORD:-}
 read -p "Port [3306]: " PORT
 PORT=${PORT:-3306}
 
-until mysql -h $HOST -u $USER -p $PORT -p$PASSWORD  -e ";" ; do
+until mysql -h $HOST -u $USER --port=$PORT -p$PASSWORD  -e ";" ; do
     echo Can\'t connect, please retry:
     
     read -p "MySQL Host [localhost]: " HOST
@@ -68,7 +68,7 @@ ddl="$ddl COMMIT ; "
 
 echo "Import started: OK"
 
-time mysql -h $HOST -u $USER -p $PORT -p$PASSWORD -e "$ddl"
+time mysql -h $HOST -u $USER --port=$PORT -p$PASSWORD -e "$ddl"
 
 # store end date to a variable
 end=`date`
